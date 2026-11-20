@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Legal AI Auth</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body class="auth-body">
+    <main class="auth-shell">
+        <section class="auth-hero auth-panel">
+
+            <div class="auth-hero-copy">
+                <span class="auth-kicker">Lawyer AI Workspace</span>
+                <h1>Secure legal guidance with saved history and protected access.</h1>
+                <p>Sign in once, continue across sessions, and keep your chats, profile, and legal context in one clean workspace.</p>
+            </div>
+
+            <div class="auth-hero-grid">
+                <article class="auth-feature-card">
+                    <h2>Protected by default</h2>
+                    <p>Your legal chats stay behind a signed-in workspace.</p>
+                </article>
+                
+                <article class="auth-feature-card">
+                    <h2>Email-based access</h2>
+                    <p>Use your email and password to continue smoothly across reloads.</p>
+                </article>
+                
+                <article class="auth-feature-card">
+                    <h2>Per-user chat history</h2>
+                    <p>Your sessions and messages stay scoped to your account.</p>
+                </article>
+            </div>
+        </section>
+
+        <section class="auth-card auth-panel">
+            <div class="auth-card-head">
+                <p class="eyebrow">Secure Access</p>
+                <h2>Continue to Lawyer AI</h2>
+                <p class="auth-card-subtitle">Sign in to continue your saved legal guidance chats.</p>
+            </div>
+
+            <div class="auth-tabs" role="tablist" aria-label="Authentication mode">
+                <button id="loginTab" class="auth-tab active" type="button">Login</button>
+                <button id="signupTab" class="auth-tab" type="button">Sign Up</button>
+            </div>
+
+            <form id="loginForm" class="auth-form" method="post" action="javascript:void(0)" novalidate>
+                <label>
+                    Email
+                    <input id="loginEmail" type="email" placeholder="you@example.com" autocomplete="email" required>
+                </label>
+                
+                <label>
+                    Password
+                    <input id="loginPassword" type="password" placeholder="Enter your password" autocomplete="current-password" required>
+                </label>
+                
+                <button class="auth-submit" type="submit">Login</button>
+                <a href="#" id="forgotPasswordLink" class="forgot-password-link">Forgot Password?</a>
+            </form>
+
+            <form id="signupForm" class="auth-form hidden" method="post" action="javascript:void(0)" novalidate>
+                <label>
+                    Full Name
+                    <input id="signupName" type="text" placeholder="Your full name" autocomplete="name" required>
+                </label>
+
+                <label>
+                    Email
+                    <input id="signupEmail" type="email" placeholder="you@example.com" autocomplete="email" required>
+                </label>
+
+                <label>
+                    Password
+                    <input id="signupPassword" type="password" placeholder="At least 8 characters" autocomplete="new-password" required>
+                </label>
+
+                <label>
+                    State / UT
+                    <select id="signupState">
+                        <option value="">Select State / UT</option>
+                    </select>
+                </label>
+
+                <button class="auth-submit" type="submit">Create Account</button>
+            </form>
+
+            <div id="authMessage" class="auth-message" role="status" aria-live="polite"></div>
+            <p class="auth-footnote">Sessions persist securely across reloads until you log out.</p>
+        </section>
+
+        <div id="passwordResetModal" class="modal" aria-hidden="true">
+            <div class="modal-content">
+                <span class="close">&times;</span>
+                <h2 id="passwordResetTitle">Reset Password</h2>
+
+                <form id="passwordResetForm" class="auth-form" method="post" action="javascript:void(0)" novalidate>
+                    <label>
+                        Email
+                        <input id="resetEmail" type="email" placeholder="Enter your email" required>
+                    </label>
+                    <button class="auth-submit" type="submit">Send Reset Link</button>
+                </form>
+
+                <form id="passwordResetConfirmForm" class="auth-form hidden" method="post" action="javascript:void(0)" novalidate>
+                    <label>
+                        New Password
+                        <input id="resetNewPassword" type="password" placeholder="Enter a new password" autocomplete="new-password" minlength="8" required>
+                    </label>
+
+                    <label>
+                        Confirm Password
+                        <input id="resetConfirmPassword" type="password" placeholder="Confirm your new password" autocomplete="new-password" minlength="8" required>
+                    </label>
+                    
+                    <button class="auth-submit" type="submit">Update Password</button>
+                </form>
+
+                <div id="resetMessage" class="auth-message"></div>
+            </div>
+        </div>
+    </main>
+
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
+    <script src="config.js"></script>
+    <script src="auth.js"></script>
+    
+</body>
+</html>
