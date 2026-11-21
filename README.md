@@ -19,7 +19,7 @@ The project is built to show production-oriented engineering rather than a one-o
 - Backend: FastAPI, Pydantic, Uvicorn
 - Frontend: HTML, CSS, vanilla JavaScript
 - Database: MongoDB active runtime, SQLite retained only as migration/backup reference
-- AI and retrieval: OpenAI API wrapper, India Kanoon retrieval, local legal datasets, optional Google Custom Search
+- AI and retrieval: Gemini API wrapper, India Kanoon retrieval, local legal datasets, optional Google Custom Search
 - Auth and email: HttpOnly cookies, bearer token compatibility, SMTP password reset email
 - Testing: Pytest, FastAPI TestClient
 - Deployment targets: Render, Railway, VPS, Docker-compatible ASGI hosting
@@ -49,7 +49,7 @@ External and data sources
   |-- MongoDB for users, sessions, reset tokens, chat sessions, messages
   |-- Local legal datasets and knowledge corpus
   |-- India Kanoon API
-  |-- OpenAI API
+  |-- Gemini API
   |-- Optional Google Custom Search
 ```
 
@@ -110,7 +110,7 @@ backend/
       mongo_session_store.py
       session_store.py
       storage.py
-      openai_service.py
+      gemini_service.py
     utils/
       request_context.py
     main.py
@@ -133,7 +133,7 @@ Prerequisites:
 
 - Python 3.11+
 - MongoDB running locally or reachable through `MONGODB_URI`
-- OpenAI API key
+- Gemini API key
 - Optional: India Kanoon API token and SMTP account
 
 Steps:
@@ -154,7 +154,7 @@ pip install -r requirements.txt
 Copy-Item .env.example .env
 ```
 
-Then edit `.env` and set at least `OPENAI_API_KEY`.
+Then edit `.env` and set at least `GEMINI_API_KEY`.
 
 MongoDB is the active runtime database. The default local configuration is:
 
@@ -226,7 +226,7 @@ Use `backend.main:app` for Render, Railway, VPS systemd services, Docker, or any
 - `AUTH_COOKIE_NAME=session_token` or another stable cookie name.
 - `AUTH_SESSION_DURATION_DAYS` is set intentionally.
 - `MONGODB_URI` points to production MongoDB.
-- `OPENAI_API_KEY` is set and `OPENAI_TIMEOUT_SECONDS` / `OPENAI_MAX_RETRIES` are reasonable.
+- `GEMINI_API_KEY` is set and `GEMINI_TIMEOUT_SECONDS` / `GEMINI_MAX_RETRIES` are reasonable.
 - `SMTP_HOST`, `SMTP_USERNAME`, `SMTP_PASSWORD`, and `SMTP_FROM_EMAIL` are set if password reset emails should work.
 - `INDIANKANOON_API_TOKEN` is set if live India Kanoon retrieval is required.
 - `GOOGLE_SEARCH_ENABLED=false` unless Google Custom Search credentials are configured.
@@ -258,8 +258,10 @@ Unauthenticated users should be redirected to `/frontend/auth.html` for the prot
 
 ## Environment Variables
 
-- `OPENAI_API_KEY`
-- `OPENAI_MODEL`
+- `GEMINI_API_KEY`
+- `GEMINI_MODEL`
+- `GEMINI_TIMEOUT_SECONDS`
+- `GEMINI_MAX_RETRIES`
 - `DATABASE_BACKEND` (`mongodb` is active; SQLite is temporarily disabled during migration)
 - `MONGODB_URI`
 - `MONGODB_DATABASE`
@@ -405,7 +407,7 @@ For a focused stabilization check:
 
 This MVP is designed to upgrade cleanly to:
 
-- OpenAI-hosted file search or vector stores
+- Gemini-hosted file search or vector stores
 - curated case-law ingestion
 - better citation attribution per source chunk
 - multilingual UX

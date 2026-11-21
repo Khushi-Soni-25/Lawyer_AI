@@ -178,7 +178,7 @@ TECHNICAL_TOPIC_MARKERS = (
     "javascript",
     "fastapi",
     "react",
-    "openai",
+    "gemini",
     "groq",
     "debug",
     "bug",

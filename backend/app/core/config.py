@@ -24,15 +24,15 @@ load_dotenv(ROOT_DIR / ".env")
 class Settings(BaseSettings):
     model_config = SettingsConfigDict(env_file=".env", env_file_encoding="utf-8", extra="ignore")
 
-    openai_api_key: str = Field(default="", alias="OPENAI_API_KEY")
-    openai_model: str = Field(default="gpt-4.1-mini", alias="OPENAI_MODEL")
+    gemini_api_key: str = Field(default="", alias="GEMINI_API_KEY")
+    gemini_model: str = Field(default="gemini-2.5-flash", alias="GEMINI_MODEL")
     max_file_size_mb: int = Field(default=10, alias="MAX_FILE_SIZE_MB")
     storage_base_dir: str = Field(default="", alias="STORAGE_BASE_DIR")
     debug: bool = Field(default=False, alias="DEBUG")
     default_state: str = Field(default="Gujarat", alias="DEFAULT_STATE")
     retrieval_mode: str = Field(default="local_context", alias="RETRIEVAL_MODE")
-    openai_timeout_seconds: float = Field(default=45.0, alias="OPENAI_TIMEOUT_SECONDS")
-    openai_max_retries: int = Field(default=2, alias="OPENAI_MAX_RETRIES")
+    gemini_timeout_seconds: float = Field(default=45.0, alias="GEMINI_TIMEOUT_SECONDS")
+    gemini_max_retries: int = Field(default=2, alias="GEMINI_MAX_RETRIES")
     database_backend: str = Field(default="mongodb", alias="DATABASE_BACKEND")
     mongodb_uri: str = Field(default="mongodb://127.0.0.1:27017", alias="MONGODB_URI")
     mongodb_database: str = Field(default="lawyer_ai", alias="MONGODB_DATABASE")
@@ -40,7 +40,6 @@ class Settings(BaseSettings):
         default="http://127.0.0.1:5000,http://localhost:5000",
         alias="CORS_ALLOW_ORIGINS",
     )
-    openai_vector_store_id: str = Field(default="", alias="OPENAI_VECTOR_STORE_ID")
     auth_cookie_name: str = Field(default="session_token", alias="AUTH_COOKIE_NAME")
     auth_session_duration_days: int = Field(default=14, alias="AUTH_SESSION_DURATION_DAYS")
     frontend_auth_path: str = Field(default="/frontend/auth.html", alias="FRONTEND_AUTH_PATH")

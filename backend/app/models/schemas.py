@@ -108,7 +108,7 @@ class HealthResponse(BaseModel):
 class DebugStatusResponse(BaseModel):
     api_status: str
     configured_model: str
-    openai_key_configured: bool
+    gemini_key_configured: bool
     retrieval_mode: str
     upload_support: dict[str, bool]
     knowledge_files: int

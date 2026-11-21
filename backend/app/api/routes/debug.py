@@ -21,8 +21,8 @@ def debug_status(request: Request) -> DebugStatusResponse:
     )
     return DebugStatusResponse(
         api_status="up",
-        configured_model=settings.openai_model,
-        openai_key_configured=bool(settings.openai_api_key),
+        configured_model=settings.gemini_model,
+        gemini_key_configured=bool(settings.gemini_api_key),
         retrieval_mode=settings.retrieval_mode,
         upload_support={
             "pdfplumber": pdfplumber is not None,

@@ -256,7 +256,7 @@ def test_admin_system_status_returns_safe_operational_booleans(anonymous_client)
     settings.google_search_enabled = True
     settings.google_custom_search_api_key = "google-secret-key"
     settings.google_custom_search_cx = "google-secret-cx"
-    settings.openai_api_key = "openai-secret-key"
+    settings.gemini_api_key = "gemini-secret-key"
     settings.smtp_host = "smtp.example.com"
     settings.smtp_username = "sender@example.com"
     settings.smtp_password = "smtp-secret-password"
@@ -312,7 +312,7 @@ def test_admin_system_health_returns_safe_metrics_and_handles_degraded_database(
     )
     assert signup_response.status_code == 200
     assert promote_admin(email)["role"] == "admin"
-    anonymous_client.app.state.settings.openai_api_key = "openai-secret-key"
+    anonymous_client.app.state.settings.gemini_api_key = "gemini-secret-key"
     anonymous_client.app.state.health_metrics["chat_response_times_ms"] = [125.0, 175.0]
 
     response = anonymous_client.get("/admin/system/health")
@@ -1133,7 +1133,7 @@ def test_admin_config_returns_safe_read_only_feature_toggles(anonymous_client):
     settings.google_search_enabled = True
     settings.google_custom_search_api_key = "google-secret-key"
     settings.google_custom_search_cx = "google-secret-cx"
-    settings.openai_api_key = "openai-secret-key"
+    settings.gemini_api_key = "gemini-secret-key"
     settings.smtp_password = "smtp-secret-password"
     settings.maintenance_mode = True
 

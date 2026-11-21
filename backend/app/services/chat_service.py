@@ -26,7 +26,7 @@ from backend.app.services.intent_service import IntentRoutingService
 from backend.app.services.legal_domain_classifier import LegalDomainClassifier
 
 from backend.app.services.local_ml import LocalSemanticSupportChecker, LocalTextSimilarityService
-from backend.app.services.openai_service import OpenAIResponsesService
+from backend.app.services.gemini_service import GeminiService
 
 from backend.app.services.storage import SessionStoreProtocol
 from backend.app.utils.request_context import get_logger
@@ -309,7 +309,7 @@ class ChatService:
         self._legal_dataset: LocalLegalDatasetService | None = None
         self._local_similarity: LocalTextSimilarityService | None = None
         self._semantic_support_checker: LocalSemanticSupportChecker | None = None
-        self._openai: OpenAIResponsesService | None = None
+        self._gemini: GeminiService | None = None
         self._direct_answer_cache: dict[str, dict[str, Any]] = {}
 
     @property
@@ -359,11 +359,11 @@ class ChatService:
         return self._semantic_support_checker
 
     @property
-    def openai(self) -> OpenAIResponsesService:
+    def gemini(self) -> GeminiService:
 
-        if self._openai is None:
-            self._openai = OpenAIResponsesService(self.settings)
-        return self._openai
+        if self._gemini is None:
+            self._gemini = GeminiService(self.settings)
+        return self._gemini
 
     def _build_direct_answer_cache_key(self, *, kind: str, normalized_query: str) -> str | None:
         clean_kind = str(kind or "").strip().lower()
@@ -4544,7 +4544,7 @@ class ChatService:
         )
 
         try:
-            payload = self.openai.generate_json(prompt, conversation)
+            payload = self.gemini.generate_json(prompt, conversation)
             normalized_payload = self._normalize_llm_payload(
                 payload=payload,
                 query=query,

@@ -11,7 +11,7 @@ from backend.app.core import config as config_module
 from backend.app.core.config import get_settings
 from backend.app.main import create_app
 from backend.app.services.indiankanoon_service import IndianKanoonService
-from backend.app.services.openai_service import OpenAIResponsesService
+from backend.app.services.gemini_service import GeminiService
 
 
 def _configure_local_pytest_temp_root() -> Path:
@@ -67,8 +67,8 @@ def anonymous_client(monkeypatch: pytest.MonkeyPatch):
     monkeypatch.setattr(config_module, "KNOWLEDGE_DIR", knowledge_dir)
     monkeypatch.setattr(config_module, "TEMP_DIR", tmp_path / "tmp")
     config_module.TEMP_DIR.mkdir(parents=True, exist_ok=True)
-    monkeypatch.setenv("OPENAI_API_KEY", "test-key")
-    monkeypatch.setenv("OPENAI_MODEL", "gpt-4.1-mini")
+    monkeypatch.setenv("GEMINI_API_KEY", "test-key")
+    monkeypatch.setenv("GEMINI_MODEL", "gemini-2.5-flash")
     monkeypatch.setenv("INDIANKANOON_API_TOKEN", "test-indiankanoon-token")
     monkeypatch.setenv("DEBUG", "true")
     monkeypatch.setenv("DATABASE_BACKEND", "mongodb")
@@ -171,7 +171,7 @@ def anonymous_client(monkeypatch: pytest.MonkeyPatch):
         }
 
     monkeypatch.setattr(IndianKanoonService, "retrieve_grounded_documents", fake_retrieve_grounded_documents)
-    monkeypatch.setattr(OpenAIResponsesService, "generate_json", fake_generate_json)
+    monkeypatch.setattr(GeminiService, "generate_json", fake_generate_json)
     app = create_app()
     try:
         with TestClient(app) as client:
